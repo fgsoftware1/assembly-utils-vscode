@@ -1,0 +1,127 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "gnu-assembly",
+	"patterns": [
+		{
+			"include": "#labels"
+		},
+		
+		{
+			"include": "#attributes"
+		},
+		{
+			"include": "#datavalues"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#registers"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#immediates"
+		},
+		{
+			"include": "#memaddresses"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.instruction.assembly",
+					"match": "\\b(mov|add|sub|mul|div|jmp|ret|pop|push|cmp|lea|xor|or|and|not|inc|dec|shl|shr|sar|sal|rol|ror|test|nop|call|leave|lgdt|lidt|ltr|int|iret|hlt|cli|sti|jz|je|jne|jnz|ja|jae|jb|jbe|jc|jnc|jo|jno|js|jns|jp|jnp|jl|jle|jg|jge|jcxz|jecxz|loop|loope|loopne|loopnz|loopz)[bwlqsdf]?\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.assembly",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.assembly",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.assembly",
+					"match": "#.*$"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.assembly",
+					"match": "\b(0x[0-9A-Fa-f]+|[0-9]+[Hh]?|[0-9A-Fa-f]+[Hh]?|[0-9A-Fa-f]{1,2})\b"
+				}
+			]
+		},
+		"attributes": {
+			"patterns": [
+				{
+					"name": "entity.name.directive.assembly",
+					"match": "\\.[A-Za-z_][A-Za-z0-9_]*"
+				}
+			]
+		},
+		"registers": {
+			"patterns": [
+				{
+					"name": "variable.register.assembly",
+					"match": "%[a-zA-Z][a-zA-Z0-9_]*"
+				}
+			]
+		},
+		"immediates": {
+			"patterns": [
+				{
+					"name": "constant.numeric.immediate.assembly",
+					"match": "\\$[0-9A-Za-z_]+"
+				}
+			]
+		},
+		"labels": {
+			"patterns": [
+				{
+					"name": "entity.name.label.assembly",
+					"match": "^(?<label>[A-Za-z_][A-Za-z0-9_]*):"
+				},
+				{
+					"name": "entity.name.label.local.assembly",
+					"match": "^(?<label>\\.[A-Za-z_][A-Za-z0-9_]*):"
+				}
+			]
+		},
+		"datavalues": {
+			"patterns": [
+				{
+					"name": "constant.numeric.datavalue.assembly",
+					"match": "(?<=\\.(long|byte|word|quad|int|short|float|double)\\s+)(0x[0-9A-Fa-f]+|\\d+|0[0-7]+|[0-9A-Fa-f]+[Hh]?)"
+				}
+			]
+		},
+		"memaddresses": {
+			"patterns": [
+				{
+					"name": "variable.other.memory.assembly",
+					"match": "\\([^\\)]+\\)"
+				}
+			]
+		}
+	},
+	"scopeName": "source.assembly"
+}

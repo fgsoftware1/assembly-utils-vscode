@@ -1,0 +1,71 @@
+{
+    "code bitness": {
+        "prefix": "bits",
+        "body": [
+            ".code ${1|8,16,32,64|}"
+        ]
+    },
+    "global decl": {
+        "prefix": "global",
+        "body": [
+            ".global $1"
+        ]
+    },
+    "alignment": {
+        "prefix": "align",
+        "body": [
+            ".align ${1|4,8,16,32|}"
+        ]
+    },
+    "section decl": {
+        "prefix": "section",
+        "body": [
+            ".section .${1|text,bss,data,rodata|}"
+        ]
+    },
+    "db": {
+        "prefix": "db",
+        "body": [
+            ".byte $1"
+        ]
+    },
+    "dw": {
+        "prefix": "dw",
+        "body": [
+            ".word $1"
+        ]
+    },
+    "dd": {
+        "prefix": "dd",
+        "body": [
+            ".long $1"
+        ]
+    },
+    "dq": {
+        "prefix": "dq",
+        "body": [
+            ".quad $1"
+        ]
+    },
+    "mov": {
+        "prefix": "mov",
+        "body": [
+            "mov${1|b,w,l,q|} ${2|$3,%$4,($5),$6($7)|}, ${8|%$9,($10),$11($12)|}"
+        ],
+        "description": "GAS mov: immediate, register, memory direct, memory with offset"
+    },
+    "push": {
+        "prefix": "push",
+        "body": [
+            "push${1|b,w,l,q|} ${2|$3,%$4,($5),$6($7)|}"
+        ],
+        "description": "GAS push: immediate, register, memory direct, memory with offset"
+    },
+    "pop": {
+        "prefix": "pop",
+        "body": [
+            "pop${1|b,w,l,q|} ${2|%$3,($4),$5($6)|}"
+        ],
+        "description": "GAS pop: register, memory direct, memory with offset"
+    }
+}

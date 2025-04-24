@@ -1,0 +1,62 @@
+{
+  "name": "Assembly Colors",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#1E1E1E",
+    "editor.foreground": "#D4D4D4"
+  },
+  "tokenColors": [
+    {
+      "scope": "keyword.instruction.assembly",
+      "settings": { "foreground": "#1976D2" }
+    },
+    {
+      "scope": "string.quoted.double.assembly",
+      "settings": { "foreground": "#CE9178" }
+    },
+    {
+      "scope": "constant.character.escape.assembly",
+      "settings": { "foreground": "#D7BA7D" }
+    },
+    {
+      "scope": "comment.line.number-sign.assembly",
+      "settings": { "foreground": "#888888" }
+    },
+    {
+      "scope": "constant.numeric.assembly",
+      "settings": { "foreground": "#B5CEA8" }
+    },
+    {
+      "scope": "constant.numeric.datavalue.assembly",
+      "settings": { "foreground": "#4FC3F7" }
+    },
+    {
+      "scope": "entity.name.directive.assembly",
+      "settings": { "foreground": "#bf0c2f" }
+    },
+    {
+      "scope": "entity.name.label.assembly",
+      "settings": { "foreground": "#FFA500" }
+    },
+    {
+      "scope": "entity.name.label.local.assembly",
+      "settings": { "foreground": "#FF69B4" }
+    },
+    {
+      "scope": "entity.name.section.assembly",
+      "settings": { "foreground": "#40E0D0" }
+    },
+    {
+      "scope": "variable.register.assembly",
+      "settings": { "foreground": "#FFFF66" }
+    },
+    {
+      "scope": "constant.numeric.immediate.assembly",
+      "settings": { "foreground": "#40E0D0" }
+    },
+    {
+      "scope": "variable.other.memory.assembly",
+      "settings": { "foreground": "#66FF66" }
+    }
+  ]
+}

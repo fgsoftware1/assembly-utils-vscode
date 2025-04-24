@@ -1,0 +1,42 @@
+{
+  "name": "assembly-utils",
+  "displayName": "assembly-utils",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Snippets",
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "gas",
+        "aliases": ["gas", "Gas"],
+        "extensions": [".asm", ".s", ".S"]
+      }
+    ],
+    "snippets": [
+      {
+        "language": "gas",
+        "path": "./snippets/gas.code-snippets"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gas",
+        "scopeName": "source.assembly",
+        "path": "./syntaxes/gas.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "Assembly Colors",
+        "uiTheme": "vs-dark",
+        "path": "./themes/assembly-colours.json"
+      }
+    ]
+  }
+}
