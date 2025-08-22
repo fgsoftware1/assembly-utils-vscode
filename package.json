@@ -13,6 +13,10 @@
     "Snippets",
     "Programming Languages"
   ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onCommand:assembly-utils.applySyntaxColors"
+  ],
   "contributes": {
     "languages": [
       {
@@ -34,11 +38,10 @@
         "path": "./syntaxes/gas.tmLanguage.json"
       }
     ],
-    "themes": [
+    "commands": [
       {
-        "label": "Assembly Colors",
-        "uiTheme": "vs-dark",
-        "path": "./themes/assembly-colours.json"
+        "command": "assembly-utils.applySyntaxColors",
+        "title": "Assembly: Apply Syntax Colors"
       }
     ]
   }
