@@ -3,6 +3,7 @@
   "displayName": "assembly-utils",
   "description": "",
   "version": "0.0.1",
+  "publisher": "babywolf",
   "repository": {
 	"url": "https://github.com/fgsoftware1/assembly-utils-vscode"
   },
@@ -12,10 +13,6 @@
   "categories": [
     "Snippets",
     "Programming Languages"
-  ],
-  "main": "./extension.js",
-  "activationEvents": [
-    "onCommand:assembly-utils.applySyntaxColors"
   ],
   "contributes": {
     "languages": [
@@ -38,10 +35,11 @@
         "path": "./syntaxes/gas.tmLanguage.json"
       }
     ],
-    "commands": [
+    "themes": [
       {
-        "command": "assembly-utils.applySyntaxColors",
-        "title": "Assembly: Apply Syntax Colors"
+        "label": "Assembly Colors",
+        "uiTheme": "vs-dark",
+        "path": "./themes/assembly-colours.json"
       }
     ]
   }

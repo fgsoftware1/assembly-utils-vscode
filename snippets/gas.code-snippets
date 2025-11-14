@@ -1,8 +1,8 @@
 {
-    "code bitness": {
+    "bits": {
         "prefix": "bits",
         "body": [
-            ".code ${1|8,16,32,64|}"
+            ".code ${1|16,32,64|}"
         ]
     },
     "global decl": {

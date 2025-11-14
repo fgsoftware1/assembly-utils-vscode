@@ -1,28 +1,32 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "gnu-assembly",
+	"scopeName": "source.assembly",
+	"fileTypes": ["asm", "s", "S"],
 	"patterns": [
 		{
-			"include": "#labels"
-		},
-		
-		{
-			"include": "#attributes"
-		},
-		{
-			"include": "#datavalues"
-		},
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#registers"
+			"include": "#comments"
 		},
 		{
 			"include": "#strings"
 		},
 		{
-			"include": "#comments"
+			"include": "#directiveOperands"
+		},
+		{
+			"include": "#callOperands"
+		},
+		{
+			"include": "#directives"
+		},
+		{
+			"include": "#labels"
+		},
+		{
+			"include": "#instructions"
+		},
+		{
+			"include": "#registers"
 		},
 		{
 			"include": "#numbers"
@@ -31,15 +35,15 @@
 			"include": "#immediates"
 		},
 		{
-			"include": "#memaddresses"
+			"include": "#loosewords"
 		}
 	],
 	"repository": {
-		"keywords": {
+		"comments": {
 			"patterns": [
 				{
-					"name": "keyword.instruction.assembly",
-					"match": "\\b(mov|add|sub|mul|div|jmp|ret|pop|push|cmp|lea|xor|or|and|not|inc|dec|shl|shr|sar|sal|rol|ror|test|nop|call|leave|lgdt|lidt|ltr|int|iret|hlt|cli|sti|jz|je|jne|jnz|ja|jae|jb|jbe|jc|jnc|jo|jno|js|jns|jp|jnp|jl|jle|jg|jge|jcxz|jecxz|loop|loope|loopne|loopnz|loopz)[bwlqsdf]?\\b"
+					"name": "comment.line.assembly",
+					"match": "#.*$"
 				}
 			]
 		},
@@ -54,43 +58,19 @@
 				}
 			]
 		},
-		"comments": {
+		"directives": {
 			"patterns": [
 				{
-					"name": "comment.line.number-sign.assembly",
-					"match": "#.*$"
-				}
-			]
-		},
-		"numbers": {
-			"patterns": [
-				{
-					"name": "constant.numeric.assembly",
-					"match": "\b(0x[0-9A-Fa-f]+|[0-9]+[Hh]?|[0-9A-Fa-f]+[Hh]?|[0-9A-Fa-f]{1,2})\b"
-				}
-			]
-		},
-		"attributes": {
-			"patterns": [
+					"name": "entity.name.gnu.directive.assembly",
+					"match": "@[a-zA-Z_][a-zA-Z0-9_]*"
+				},
 				{
 					"name": "entity.name.directive.assembly",
-					"match": "\\.[A-Za-z_][A-Za-z0-9_]*"
-				}
-			]
-		},
-		"registers": {
-			"patterns": [
+					"match": "\\.(section|text|data|bss|globl|global|extern|align|byte|word|long|quad|int|short|float|double|space|asciz|ascii|include)\\b"
+				},
 				{
-					"name": "variable.register.assembly",
-					"match": "%[a-zA-Z][a-zA-Z0-9_]*"
-				}
-			]
-		},
-		"immediates": {
-			"patterns": [
-				{
-					"name": "constant.numeric.immediate.assembly",
-					"match": "\\$[0-9A-Za-z_]+"
+					"name": "entity.name.directive.assembly",
+					"match": "\\.[a-zA-Z_][a-zA-Z0-9_]*"
 				}
 			]
 		},
@@ -98,30 +78,123 @@
 			"patterns": [
 				{
 					"name": "entity.name.label.assembly",
-					"match": "^(?<label>[A-Za-z_][A-Za-z0-9_]*):"
+					"match": "^[A-Za-z_][A-Za-z0-9_]*:"
 				},
 				{
 					"name": "entity.name.label.local.assembly",
-					"match": "^(?<label>\\.[A-Za-z_][A-Za-z0-9_]*):"
+					"match": "^\\.[A-Za-z_][A-Za-z0-9_]*:"
 				}
 			]
 		},
-		"datavalues": {
+		"instructions": {
 			"patterns": [
 				{
-					"name": "constant.numeric.datavalue.assembly",
-					"match": "(?<=\\.(long|byte|word|quad|int|short|float|double)\\s+)(0x[0-9A-Fa-f]+|\\d+|0[0-7]+|[0-9A-Fa-f]+[Hh]?)"
+					"name": "keyword.instruction.assembly",
+					"match": "\\b(mov|add|sub|mul|imul|div|idiv|call|jmp|je|jne|ja|jb|jbe|jae|jg|jl|jle|jge|jo|jno|js|jns|jz|jnz|ret|push|pop|xchg|lea|cmp|test|and|or|xor|not|shl|shr|sar|sal|rol|ror|inc|dec|neg|nop|int|iret|hlt|cli|sti|lgdt|lldt|ltr|lgs|lfs|lss|leave|enter|loop|loope|loopne|loopz|loopnz|jcxz|jecxz|cpuid|rdmsr|wrmsr)(?:[bwlq])?\\b"
 				}
 			]
 		},
-		"memaddresses": {
+		"callOperands": {
 			"patterns": [
 				{
-					"name": "variable.other.memory.assembly",
-					"match": "\\([^\\)]+\\)"
+					"match": "(call|jmp|je|jne|ja|jb|jbe|jae|jg|jl|jle|jge|jo|jno|js|jns|jz|jnz|loop|loope|loopne|loopz|loopnz|jcxz|jecxz)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.instruction.assembly"
+						},
+						"2": {
+							"name": "entity.name.label.assembly"
+						}
+					}
+				}
+			]
+		},
+		"directiveOperands": {
+			"patterns": [
+				{
+					"match": "(\\.(globl|global|extern))\\s+([A-Za-z_][A-Za-z0-9_]*)",
+					"captures": {
+						"1": {
+							"name": "entity.name.directive.assembly"
+						},
+						"2": {
+							"name": "entity.name.directive.assembly"
+						},
+						"3": {
+							"name": "entity.name.label.assembly"
+						}
+					}
+				},
+				{
+					"match": "(\\.(type|size))\\s+([A-Za-z_][A-Za-z0-9_]*)",
+					"captures": {
+						"1": {
+							"name": "entity.name.directive.assembly"
+						},
+						"2": {
+							"name": "entity.name.directive.assembly"
+						},
+						"3": {
+							"name": "entity.name.label.assembly"
+						}
+					}
+				}
+			]
+		},
+		"registers": {
+			"patterns": [
+				{
+					"name": "variable.register.assembly",
+					"match": "\\b(rax|rbx|rcx|rdx|rsi|rdi|rbp|rsp|r8|r9|r10|r11|r12|r13|r14|r15|eax|ebx|ecx|edx|esi|edi|ebp|esp|r8d|r9d|r10d|r11d|r12d|r13d|r14d|r15d|ax|bx|cx|dx|si|di|bp|sp|r8w|r9w|r10w|r11w|r12w|r13w|r14w|r15w|al|bl|cl|dl|sil|dil|bpl|spl|r8b|r9b|r10b|r11b|r12b|r13b|r14b|r15b|ah|bh|ch|dh|es|cs|ss|ds|fs|gs)\\b"
+				},
+				{
+					"name": "variable.register.assembly",
+					"match": "%[a-z0-9]+"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.assembly",
+					"match": "0x[0-9A-Fa-f]+"
+				},
+				{
+					"name": "constant.numeric.octal.assembly",
+					"match": "0[0-7]+"
+				},
+				{
+					"name": "constant.numeric.decimal.assembly",
+					"match": "\\b\\d+\\b"
+				}
+			]
+		},
+		"immediates": {
+			"patterns": [
+				{
+					"match": "(\\$)([A-Za-z_][A-Za-z0-9_]*)",
+					"captures": {
+						"1": {
+							"name": "constant.numeric.immediate.assembly"
+						},
+						"2": {
+							"name": "constant.numeric.immediate.operand.assembly"
+						}
+					}
+				},
+				{
+					"name": "constant.numeric.immediate.assembly",
+					"match": "\\$[0-9A-Fa-f]+"
+				}
+			]
+		},
+		"loosewords": {
+			"patterns": [
+				{
+					"name": "variable.other.assembly",
+					"match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
 				}
 			]
 		}
-	},
-	"scopeName": "source.assembly"
+	}
 }
