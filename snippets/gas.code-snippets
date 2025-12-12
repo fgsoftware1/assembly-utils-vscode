@@ -52,20 +52,20 @@
         "body": [
             "mov${1|b,w,l,q|} ${2|$3,%$4,($5),$6($7)|}, ${8|%$9,($10),$11($12)|}"
         ],
-        "description": "GAS mov: immediate, register, memory direct, memory with offset"
+        "description": "mov: immediate, register, memory direct, memory with offset"
     },
     "push": {
         "prefix": "push",
         "body": [
             "push${1|b,w,l,q|} ${2|$3,%$4,($5),$6($7)|}"
         ],
-        "description": "GAS push: immediate, register, memory direct, memory with offset"
+        "description": "push: immediate, register, memory direct, memory with offset"
     },
     "pop": {
         "prefix": "pop",
         "body": [
             "pop${1|b,w,l,q|} ${2|%$3,($4),$5($6)|}"
         ],
-        "description": "GAS pop: register, memory direct, memory with offset"
+        "description": "pop: register, memory direct, memory with offset"
     }
 }
