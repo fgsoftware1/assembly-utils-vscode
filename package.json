@@ -2,7 +2,7 @@
   "name": "assembly-utils",
   "displayName": "assembly-utils",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "babywolf",
   "repository": {
 	"url": "https://github.com/fgsoftware1/assembly-utils-vscode"
@@ -18,7 +18,7 @@
     "languages": [
       {
         "id": "gas",
-        "aliases": ["gas", "Gas"],
+        "aliases": ["gas", "GAS", "GNU Assembler"],
         "extensions": [".asm", ".s", ".S"]
       }
     ],
@@ -35,12 +35,26 @@
         "path": "./syntaxes/gas.tmLanguage.json"
       }
     ],
-    "themes": [
-      {
-        "label": "Assembly Colors",
-        "uiTheme": "vs-dark",
-        "path": "./themes/assembly-colours.json"
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {"scope": "comment.line.assembly", "settings": {"foreground": "#888888", "fontStyle": "italic"}},
+          {"scope": "string.quoted.double.assembly", "settings": {"foreground": "#CE9178"}},
+          {"scope": "constant.character.escape.assembly", "settings": {"foreground": "#D7BA7D"}},
+          {"scope": "entity.name.directive.assembly", "settings": {"foreground": "#bf0c2f", "fontStyle": "bold"}},
+          {"scope": "entity.name.gnu.directive.assembly", "settings": {"foreground": "#9966CC", "fontStyle": "bold"}},
+          {"scope": "entity.name.label.assembly", "settings": {"foreground": "#FFA500", "fontStyle": "bold"}},
+          {"scope": "entity.name.label.local.assembly", "settings": {"foreground": "#FF69B4", "fontStyle": "bold"}},
+          {"scope": "keyword.instruction.assembly", "settings": {"foreground": "#1976D2", "fontStyle": "bold"}},
+          {"scope": "variable.register.assembly", "settings": {"foreground": "#FFFF66", "fontStyle": "bold"}},
+          {"scope": "variable.other.assembly", "settings": {"foreground": "#40FFFF"}},
+          {"scope": "constant.numeric.hex.assembly", "settings": {"foreground": "#FF6B9D"}},
+          {"scope": "constant.numeric.octal.assembly", "settings": {"foreground": "#C0FF00"}},
+          {"scope": "constant.numeric.decimal.assembly", "settings": {"foreground": "#FFFF00"}},
+          {"scope": "constant.numeric.immediate.assembly", "settings": {"foreground": "#FFA500"}},
+          {"scope": "constant.numeric.immediate.operand.assembly", "settings": {"foreground": "#00FF00"}}
+        ]
       }
-    ]
+    }
   }
 }
