@@ -2,7 +2,7 @@
 	"name": "assembly-utils",
 	"displayName": "assembly-utils",
 	"description": "",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"publisher": "babywolf",
 	"repository": {
 		"url": "https://github.com/fgsoftware1/assembly-utils-vscode"

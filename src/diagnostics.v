@@ -315,7 +315,7 @@ pub fn (mut eng DiagEngine) publish_workspace() {
 fn (eng &DiagEngine) check_line(l Line, raw string, globals map[string]bool, path string) []Diag {
 	mut diags := []Diag{}
 	
-	// D031: incomplete label - line has label-like content but no colon
+	// D018 incomplete label - line has label-like content but no colon
 	stripped := raw.trim_space()
 	if stripped.len > 0 && !stripped.starts_with('.') && !stripped.starts_with('#') && !stripped.contains(':') {
 		first_word := stripped.split(' ')[0].split('	')[0]
@@ -330,6 +330,18 @@ fn (eng &DiagEngine) check_line(l Line, raw string, globals map[string]bool, pat
 						diags << eng.make(l, raw, 'D018', .error, "incomplete label: '${first_word}' has no colon")
 					}
 				}
+			}
+		}
+	}
+	
+	// TODO check - comments containing TODO/FIXME/HACK/XXX
+	if eng.enabled('D020') && eng.cfg.diagnostics.categories.statements {
+		todo_patterns := ['TODO', 'FIXME', 'HACK', 'XXX', 'BUG']
+		upper := stripped.to_upper()
+		for pattern in todo_patterns {
+			if upper.contains(pattern) {
+				diags << eng.make(l, raw, 'D020', .hint, "TODO comment found: '${pattern}' - consider addressing this")
+				break
 			}
 		}
 	}
@@ -391,7 +403,7 @@ fn (eng &DiagEngine) check_size(l Line, raw string) []Diag {
 	return diags
 }
 
-// D004 truncation, D006 REX+high-byte, D021 32-bit mem in 64-bit
+// D004 truncation, D005 REX+high-byte, D009 32-bit mem in 64-bit
 fn (eng &DiagEngine) check_operands(l Line, raw string) []Diag {
 	mut diags := []Diag{}
 	suffix_bits := if l.suffix != 0 { suffix_width(l.suffix) } else { 0 }
@@ -418,7 +430,7 @@ fn (eng &DiagEngine) check_operands(l Line, raw string) []Diag {
 				}
 			}
 			.memory {
-				// D021 — 32-bit base register in memory operand
+				// D009 — 32-bit base register in memory operand
 				// crude check: look for (%e__) pattern
 				if op.raw.contains('(%e') && eng.enabled('D009') {
 					diags << eng.make(l, raw, 'D009', .error, "memory operand '${op.raw}' uses 32-bit base register in 64-bit mode; consider using the 64-bit equivalent")
@@ -428,7 +440,7 @@ fn (eng &DiagEngine) check_operands(l Line, raw string) []Diag {
 		}
 	}
 
-	// D022 src == dst — check once per instruction
+	// D010 src == dst — check once per instruction
 	if l.operands.len == 2 && l.mnemonic != 'xor' {
 		src, dst := l.operands[0], l.operands[1]
 		if src.kind == .register && dst.kind == .register && src.reg == dst.reg
@@ -440,31 +452,31 @@ fn (eng &DiagEngine) check_operands(l Line, raw string) []Diag {
 	return diags
 }
 
-// D023 div-by-immediate, D025 invalid operand size, D026/D027 mul/imul, D028 shift count
+// D011 div-by-immediate, D012 pushb, D013 one-operand imul, D014 mul unsigned, D015 shift count
 fn (eng &DiagEngine) check_encoding(l Line, raw string) []Diag {
 	mut diags := []Diag{}
 
 	match l.mnemonic {
 		'div', 'idiv' {
-			// D023 — div with immediate
+			// D011 — div with immediate
 			if l.operands.any(it.kind == .immediate) && eng.enabled('D011') {
 				diags << eng.make(l, raw, 'D011', .error, "'${l.mnemonic}' does not support immediate operands; load divisor into a register first")
 			}
 		}
 		'imul' {
-			// D026 — one-operand imul
+			// D013 — one-operand imul
 			if l.operands.len == 1 && eng.enabled('D013') {
 				diags << eng.make(l, raw, 'D013', .warning, "'imul' one-operand form: high half of result in rdx may be unexpected; did you want the two-operand form?")
 			}
 		}
 		'mul' {
-			// D027 — mul vs imul
+			// D014 — mul vs imul
 			if eng.enabled('D014') {
 				diags << eng.make(l, raw, 'D014', .warning, "'mul' is unsigned multiply; upper half stored in rdx may be silently discarded; use 'imul' if signed")
 			}
 		}
 		'shl', 'shr', 'sar' {
-			// D028 — shift count must be imm8 or %cl
+			// D015 — shift count must be imm8 or %cl
 			if l.operands.len >= 1 {
 				count := l.operands[0]
 				if count.kind == .register && count.reg != 'cl' && eng.enabled('D015') {
@@ -473,7 +485,7 @@ fn (eng &DiagEngine) check_encoding(l Line, raw string) []Diag {
 			}
 		}
 		'push' {
-			// D025 — pushb not encodable
+			// D012 — pushb not encodable
 			if l.suffix == `b` && eng.enabled('D012') {
 				diags << eng.make(l, raw, 'D012', .error, "'pushb' is not encodable; push only supports 16/32/64-bit operands")
 			}
@@ -484,7 +496,7 @@ fn (eng &DiagEngine) check_encoding(l Line, raw string) []Diag {
 	return diags
 }
 
-// D029 syscall clobber, D030 int $0x80
+// D016 syscall clobber, D017 int $0x80
 fn (eng &DiagEngine) check_abi(l Line, raw string) []Diag {
 	mut diags := []Diag{}
 	if !eng.cfg.diagnostics.categories.abi {
@@ -510,11 +522,11 @@ fn (eng &DiagEngine) check_abi(l Line, raw string) []Diag {
 	return diags
 }
 
-// D012 undefined symbol, D013 missing .global, D014 dead export, D015 duplicate
+// D006 undefined symbol, D007 missing .global, D008 duplicate, D019 not exported
 fn (eng &DiagEngine) check_symbols(path string, lines []string, globals map[string]bool) []Diag {
 	mut diags := []Diag{}
 	
-	// D032: _start defined but not declared .global
+	// D019: _start defined but not declared .global
 	mut has_start := false
 	mut has_global_start := false
 	for i, raw in lines {
@@ -574,7 +586,7 @@ fn (eng &DiagEngine) check_symbols(path string, lines []string, globals map[stri
 				continue
 			}
 
-			// D013 — referenced cross-file but not .global
+			// D007 — referenced cross-file but not .global
 			if found.file != path && found.vis == .local {
 				if eng.enabled('D007') && eng.cfg.symbols.warn_missing_global {
 					diags << Diag{
@@ -592,9 +604,9 @@ fn (eng &DiagEngine) check_symbols(path string, lines []string, globals map[stri
 		}
 	}
 
-	// D014 dead exports — requires cross-file reference tracking (TODO)
+// D014 dead exports — requires cross-file reference tracking (TODO)
 
-	// D015 duplicate symbols
+// D008 duplicate symbols
 	for name, _ in globals {
 		syms := eng.get_indexer().index.find_all(name)
 		if syms.len > 1 && eng.enabled('D008') {

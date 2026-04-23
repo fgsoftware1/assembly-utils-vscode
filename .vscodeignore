@@ -1,5 +1,9 @@
-.vscode/**
+.vscode/
+.github/
 .gitignore
+.gitattributes
+.editorconfig
 
 src/
 docs/
+tests/

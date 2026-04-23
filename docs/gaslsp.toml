@@ -38,6 +38,8 @@ operand = true   # D004-D005, D009-D010, D018: operand issues
 encoding = true  # D011-D015: encoding issues
 abi = true       # D016-D017: ABI issues
 symbol = true    # D006-D008, D019: symbol issues
+state = true      # D034: uninitialized register tracking
+statements = true # D020: TODO/FIXME comments
 
 # Enable/disable severity levels
 [diagnostics.levels]

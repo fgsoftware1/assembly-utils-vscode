@@ -9,15 +9,16 @@ import os
 
 pub struct DiagCategories {
 pub mut:
-	size       bool = true
-	truncation bool = true
-	register   bool = true
-	symbol     bool = true
-	directive  bool = true
-	operand    bool = true
-	encoding   bool = true
-	abi        bool = true
-	state      bool = true
+	size        bool = true
+	truncation  bool = true
+	register    bool = true
+	symbol      bool = true
+	directive   bool = true
+	operand     bool = true
+	encoding    bool = true
+	abi         bool = true
+	state       bool = true
+	statements  bool = true
 }
 
 pub struct DiagLevels {
@@ -206,6 +207,7 @@ fn apply(key string, value string, section string, mut cfg Config) {
 				'encoding' { cfg.diagnostics.categories.encoding = v }
 				'abi' { cfg.diagnostics.categories.abi = v }
 				'state' { cfg.diagnostics.categories.state = v }
+				'statements' { cfg.diagnostics.categories.statements = v }
 				else {}
 			}
 		}

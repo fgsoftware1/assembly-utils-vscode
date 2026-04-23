@@ -155,6 +155,21 @@ State Diagnostics (D034)
      - Warning
      - Register may be read before being written (uninitialized)
 
+Statement Diagnostics (D020)
+------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 15 70
+
+   * - Code
+     - Severity
+     - Description
+
+   * - D020
+     - Hint
+     - TODO/FIXME/HACK/XXX/BUG comment found
+
 Configuration
 --------------
 
@@ -173,3 +188,4 @@ Diagnostics can be suppressed or promoted to errors in ``gaslsp.toml``:
    abi = true      # D016-D017
    symbol = true    # D006-D008, D019
    state = true     # D034: uninitialized register tracking
+   statements = true # D020: TODO/FIXME comments
