@@ -1,0 +1,70 @@
+# gaslsp.toml - GAS Assembly LSP Configuration
+#
+# This file configures diagnostics and behavior for gaslsp.
+# Place it in your project root or at ~/.config/gaslsp/gaslsp.toml
+
+# ─────────────────────────────────────────────────────────────────
+# General Settings
+# ─────────────────────────────────────────────────────────────────
+[general]
+mode = "auto"                    # "auto" or "strict"
+recursive = true                  # Recursively index subdirectories
+extensions = [".s", ".S", ".asm"]  # File extensions to recognize
+
+# ─────────────────────────────────────────────────────────────────
+# Indexing
+# ─────────────────────────────────────────────────────────────────
+[indexing]
+scope = "workspace"              # "workspace", "includes", or "open"
+follow_external_includes = false  # Follow .include directives outside workspace
+extra_dirs = []                  # Additional directories to search for includes
+
+# ─────────────────────────────────────────────────────────────────
+# Diagnostics
+# ─────────────────────────────────────────────────────────────────
+[diagnostics]
+enabled = true
+
+# Suppress specific diagnostic codes (can be "D001", "D002", etc.)
+suppress = []
+
+# Promote specific warnings to errors
+warnings_as_errors = []
+
+# Enable/disable diagnostic categories
+[diagnostics.categories]
+size = true      # D001-D003: size suffix issues
+operand = true   # D004-D005, D009-D010, D018: operand issues
+encoding = true  # D011-D015: encoding issues
+abi = true       # D016-D017: ABI issues
+symbol = true    # D006-D008, D019: symbol issues
+state = true      # D034: uninitialized register tracking
+statements = true # D020: TODO/FIXME comments
+
+# Enable/disable severity levels
+[diagnostics.levels]
+error = true
+warning = true
+hint = true
+
+# ─────────────────────────────────────────────────────────────────
+# Inference (size suffix inferring)
+# ─────────────────────────────────────────────────────────────────
+[infer]
+warn_inferred_size = true   # Warn when suffix is inferred from operand
+warn_mode_mismatch = true   # Warn when mode doesn't match
+
+# ─────────────────────────────────────────────────────────────────
+# Symbols
+# ─────────────────────────────────────────────────────────────────
+[symbols]
+warn_dead_exports = false   # Warn when .global symbol is never referenced
+warn_missing_global = true   # Warn when cross-file reference lacks .global
+
+# ─────────────────────────────────────────────────────────────────
+# ABI
+# ─────────────────────────────────────────────────────────────────
+[abi]
+convention = "sysv"              # "sysv" (Linux/Unix) or "ms" (Windows)
+warn_syscall_clobber = true     # Warn about syscall clobbering rcx/r11
+warn_legacy_syscall = true      # Warn about int $0x80 (32-bit syscall)

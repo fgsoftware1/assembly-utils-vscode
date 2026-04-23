@@ -90,7 +90,7 @@
 			"patterns": [
 				{
 					"name": "keyword.instruction.assembly",
-					"match": "\\b(mov|add|sub|mul|imul|div|idiv|call|jmp|je|jne|ja|jb|jbe|jae|jg|jl|jle|jge|jo|jno|js|jns|jz|jnz|ret|push|pop|xchg|lea|cmp|test|and|or|xor|not|shl|shr|sar|sal|rol|ror|inc|dec|neg|nop|int|iret|hlt|cli|sti|lgdt|lldt|ltr|lgs|lfs|lss|leave|enter|loop|loope|loopne|loopz|loopnz|jcxz|jecxz|cpuid|rdmsr|wrmsr)(?:[bwlq])?\\b"
+					"match": "\\b(mov|add|sub|mul|imul|div|idiv|call|jmp|je|jne|ja|jb|jbe|jae|jg|jl|jle|jge|jo|jno|js|jns|jz|jnz|ret|push|pop|pusha|popa|xchg|lea|cmp|test|and|or|xor|not|shl|shr|sar|sal|rol|ror|inc|dec|neg|nop|int|iret|hlt|cli|sti|lgdt|lidt|ltr|sgdt|sidt|str|lgs|lfs|lss|leave|enter|loop|loope|loopne|loopz|loopnz|jcxz|jecxz|cpuid|rdmsr|wrmsr|rdtsc|rdtscp|cld|std|stc|clc|cmc|pushf|popf|cbw|cwde|cdqe|cwd|cdq|cqo|invlpg|invd|wbinvd)(?:[bwlq])?\\b"
 				}
 			]
 		},

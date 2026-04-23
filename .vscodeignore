@@ -1,4 +1,9 @@
-.vscode/**
-.vscode-test/**
+.vscode/
+.github/
 .gitignore
-vsc-extension-quickstart.md
+.gitattributes
+.editorconfig
+
+src/
+docs/
+tests/
