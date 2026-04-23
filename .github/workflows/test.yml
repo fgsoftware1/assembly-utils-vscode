@@ -30,7 +30,7 @@ jobs:
           mkdir -p ~/.local/bin
           cp src/gaslsp ~/.local/bin/gaslsp
           cp -r src/tables ~/.local/bin/
-chmod +x tests/integration.sh tests/test_diags.sh
+          chmod +x tests/integration.sh tests/test_diags.sh
           tests/integration.sh
 
   test-diags:
