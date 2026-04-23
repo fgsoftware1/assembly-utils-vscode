@@ -42,15 +42,17 @@ jobs:
       - name: Install V
         uses: vlang/setup-v@v1.4
 
-      - name: Build gaslsp
+      - name: Build gaslsp and test_diags
         run: |
           cd src
           v -o gaslsp .
+          v -o test_diags test_diags.v
 
       - name: Install and test diagnostics
         run: |
           mkdir -p ~/.local/bin
           cp src/gaslsp ~/.local/bin/gaslsp
+          cp src/test_diags ~/.local/bin/test_diags
           cp -r src/tables ~/.local/bin/
           chmod +x tests/test_diags.sh
-          tests/test_diags.sh
+          WORKSPACE="$(pwd)" tests/test_diags.sh
