@@ -3,7 +3,7 @@ module main
 import os
 
 fn run_diag(lsp_path string, workspace string, code string, content string) bool {
-	tmpfile := os.join_path(workspace, 'tests', 'tmp_${code}.s')
+	tmpfile := os.join_path(workspace, 'tmp_${code}.s')
 	os.write_file(tmpfile, content) or { return false }
 	defer {
 		os.rm(tmpfile) or {}
@@ -13,30 +13,30 @@ fn run_diag(lsp_path string, workspace string, code string, content string) bool
 	escaped_tmpfile := tmpfile.replace('\\', '\\\\').replace('"', '\\"')
 	escaped_workspace := workspace.replace('\\', '\\\\').replace('"', '\\"')
 
-	init_body := "{\"jsonrpc\":\"2.0\",\"method\":\"initialize\",\"params\":{\"rootUri\":\"file://" + escaped_workspace + "\"},\"id\":1}"
-	init_req := "Content-Length: ${init_body.len}\r\n\r\n" + init_body
-	init_notif_body := "{\"jsonrpc\":\"2.0\",\"method\":\"initialized\",\"params\":{}}"
-	init_notif := "Content-Length: ${init_notif_body.len}\r\n\r\n" + init_notif_body
-	open_body := "{\"jsonrpc\":\"2.0\",\"method\":\"textDocument/didOpen\",\"params\":{\"textDocument\":{\"uri\":\"file://" + escaped_tmpfile + "\",\"text\":\"" + escaped_content + "\",\"version\":1}},\"id\":2}"
-	open_req := "Content-Length: ${open_body.len}\r\n\r\n" + open_body
-	shutdown_body := "{\"jsonrpc\":\"2.0\",\"method\":\"shutdown\",\"params\":{},\"id\":3}"
-	shutdown_req := "Content-Length: ${shutdown_body.len}\r\n\r\n" + shutdown_body
-	exit_body := "{\"jsonrpc\":\"2.0\",\"method\":\"exit\",\"params\":{}}"
-	exit_notif := "Content-Length: ${exit_body.len}\r\n\r\n" + exit_body
+	init_body := '{"jsonrpc":"2.0","method":"initialize","params":{"rootUri":"file://' + escaped_workspace + '"},"id":1}'
+	init_req := 'Content-Length: ${init_body.len}\r\n\r\n' + init_body
+	init_notif_body := '{"jsonrpc":"2.0","method":"initialized","params":{}}'
+	init_notif := 'Content-Length: ${init_notif_body.len}\r\n\r\n' + init_notif_body
+	open_body := '{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file://' + escaped_tmpfile + '","text":"' + escaped_content + '","version":1}},"id":2}'
+	open_req := 'Content-Length: ${open_body.len}\r\n\r\n' + open_body
+	shutdown_body := '{"jsonrpc":"2.0","method":"shutdown","params":{},"id":3}'
+	shutdown_req := 'Content-Length: ${shutdown_body.len}\r\n\r\n' + shutdown_body
+	exit_body := '{"jsonrpc":"2.0","method":"exit","params":{}}'
+	exit_notif := 'Content-Length: ${exit_body.len}\r\n\r\n' + exit_body
 
 	input := init_req + init_notif + open_req + shutdown_req + exit_notif
 
-	tmp_input := os.join_path(workspace, 'tests', 'tmp_input.txt')
+	tmp_input := os.join_path(workspace, 'tmp_input.txt')
 	os.write_file(tmp_input, input) or { return false }
 	defer {
 		os.rm(tmp_input) or {}
 	}
 
-tmp_output := os.join_path(workspace, 'tests', 'tmp_output.txt')
+	tmp_output := os.join_path(workspace, 'tmp_output.txt')
 	bash_cmd := '/bin/bash -c \'cat "' + tmp_input + '" | "' + lsp_path + '" > "' + tmp_output + '"\''
 	os.execute(bash_cmd)
+
 	tmp_output_content := os.read_file(tmp_output) or {
-		eprintln("Failed to read output: ${err}")
 		return false
 	}
 

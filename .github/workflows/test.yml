@@ -46,13 +46,14 @@ jobs:
         run: |
           cd src
           v -o gaslsp .
+          cd ../tests
           v -o test_diags test_diags.v
 
       - name: Install and test diagnostics
         run: |
           mkdir -p ~/.local/bin
           cp src/gaslsp ~/.local/bin/gaslsp
-          cp src/test_diags ~/.local/bin/test_diags
+          cp tests/test_diags ~/.local/bin/test_diags
           cp -r src/tables ~/.local/bin/
           chmod +x tests/test_diags.sh
           WORKSPACE="$(pwd)" tests/test_diags.sh
