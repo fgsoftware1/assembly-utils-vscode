@@ -1,0 +1,124 @@
+name,bits,family,notes
+al,8,a,low byte of rax
+ah,8,a,high byte of ax (not accessible with REX prefix)
+ax,16,a,low word of rax
+eax,32,a,low dword of rax; writing zeros upper 32 bits
+rax,64,a,general purpose / return value
+
+bl,8,b,low byte of rbx
+bh,8,b,high byte of bx (not accessible with REX prefix)
+bx,16,b,low word of rbx
+ebx,32,b,low dword of rbx; writing zeros upper 32 bits
+rbx,64,b,callee-saved
+
+cl,8,c,low byte of rcx; implicit shift count
+ch,8,c,high byte of cx (not accessible with REX prefix)
+cx,16,c,low word of rcx
+ecx,32,c,low dword of rcx; writing zeros upper 32 bits
+rcx,64,c,4th integer argument (SysV ABI) / implicit shift count
+
+dl,8,d,low byte of rdx
+dh,8,d,high byte of dx (not accessible with REX prefix)
+dx,16,d,low word of rdx
+edx,32,d,low dword of rdx; writing zeros upper 32 bits
+rdx,64,d,3rd integer argument / high half of mul/div result
+
+sil,8,si,low byte of rsi (REX required)
+si,16,si,low word of rsi
+esi,32,si,low dword of rsi; writing zeros upper 32 bits
+rsi,64,si,2nd integer argument / string source index
+
+dil,8,di,low byte of rdi (REX required)
+di,16,di,low word of rdi
+edi,32,di,low dword of rdi; writing zeros upper 32 bits
+rdi,64,di,1st integer argument / string destination index
+
+spl,8,sp,low byte of rsp (REX required)
+sp,16,sp,low word of rsp
+esp,32,sp,low dword of rsp; writing zeros upper 32 bits
+rsp,64,sp,stack pointer; callee-saved
+
+bpl,8,bp,low byte of rbp (REX required)
+bp,16,bp,low word of rbp
+ebp,32,bp,low dword of rbp; writing zeros upper 32 bits
+rbp,64,bp,frame pointer; callee-saved
+
+r8b,8,r8,low byte of r8
+r8w,16,r8,low word of r8
+r8d,32,r8,low dword of r8; writing zeros upper 32 bits
+r8,64,r8,5th integer argument
+
+r9b,8,r9,low byte of r9
+r9w,16,r9,low word of r9
+r9d,32,r9,low dword of r9; writing zeros upper 32 bits
+r9,64,r9,6th integer argument
+
+r10b,8,r10,low byte of r10
+r10w,16,r10,low word of r10
+r10d,32,r10,low dword of r10; writing zeros upper 32 bits
+r10,64,r10,caller-saved; used as static chain pointer in some ABIs
+
+r11b,8,r11,low byte of r11
+r11w,16,r11,low word of r11
+r11d,32,r11,low dword of r11; writing zeros upper 32 bits
+r11,64,r11,caller-saved; clobbered by syscall
+
+r12b,8,r12,low byte of r12
+r12w,16,r12,low word of r12
+r12d,32,r12,low dword of r12; writing zeros upper 32 bits
+r12,64,r12,callee-saved
+
+r13b,8,r13,low byte of r13
+r13w,16,r13,low word of r13
+r13d,32,r13,low dword of r13; writing zeros upper 32 bits
+r13,64,r13,callee-saved
+
+r14b,8,r14,low byte of r14
+r14w,16,r14,low word of r14
+r14d,32,r14,low dword of r14; writing zeros upper 32 bits
+r14,64,r14,callee-saved
+
+r15b,8,r15,low byte of r15
+r15w,16,r15,low word of r15
+r15d,32,r15,low dword of r15; writing zeros upper 32 bits
+r15,64,r15,callee-saved
+
+rip,64,ip,instruction pointer; read-only; used in RIP-relative addressing
+rflags,64,flags,flags register; not a general-purpose register
+
+xmm0,128,xmm,SSE/AVX register; 1st FP/vector argument and return
+xmm1,128,xmm,SSE/AVX register; 2nd FP/vector argument
+xmm2,128,xmm,SSE/AVX register; 3rd FP/vector argument
+xmm3,128,xmm,SSE/AVX register; 4th FP/vector argument
+xmm4,128,xmm,SSE/AVX register; 5th FP/vector argument
+xmm5,128,xmm,SSE/AVX register; 6th FP/vector argument
+xmm6,128,xmm,SSE/AVX register; caller-saved
+xmm7,128,xmm,SSE/AVX register; caller-saved
+xmm8,128,xmm,SSE/AVX register; caller-saved
+xmm9,128,xmm,SSE/AVX register; caller-saved
+xmm10,128,xmm,SSE/AVX register; caller-saved
+xmm11,128,xmm,SSE/AVX register; caller-saved
+xmm12,128,xmm,SSE/AVX register; caller-saved
+xmm13,128,xmm,SSE/AVX register; caller-saved
+xmm14,128,xmm,SSE/AVX register; caller-saved
+xmm15,128,xmm,SSE/AVX register; caller-saved
+
+ymm0,256,ymm,AVX 256-bit register; lower 128 bits alias xmm0
+ymm1,256,ymm,AVX 256-bit register; lower 128 bits alias xmm1
+ymm2,256,ymm,AVX 256-bit register
+ymm3,256,ymm,AVX 256-bit register
+ymm4,256,ymm,AVX 256-bit register
+ymm5,256,ymm,AVX 256-bit register
+ymm6,256,ymm,AVX 256-bit register
+ymm7,256,ymm,AVX 256-bit register
+ymm8,256,ymm,AVX 256-bit register
+ymm9,256,ymm,AVX 256-bit register
+ymm10,256,ymm,AVX 256-bit register
+ymm11,256,ymm,AVX 256-bit register
+ymm12,256,ymm,AVX 256-bit register
+ymm13,256,ymm,AVX 256-bit register
+ymm14,256,ymm,AVX 256-bit register
+ymm15,256,ymm,AVX 256-bit register
+
+
+
