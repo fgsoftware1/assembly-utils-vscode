@@ -39,10 +39,10 @@ function activate(context) {
     const clientOptions = {
         documentSelector: [
             { scheme: 'file', language: '{asm,gas}' },
-            { scheme: 'file', pattern: '**/*.{s,S,asm}' },
+            { scheme: 'file', pattern: '**/*.{s,S,asm,inc}' },
         ],
         synchronize: {
-            fileEvents: workspace.createFileSystemWatcher('**/*.{s,S,asm}')
+            fileEvents: workspace.createFileSystemWatcher('**/*.{s,S,asm,inc}')
         },
         outputChannel: outputChannel,
     };

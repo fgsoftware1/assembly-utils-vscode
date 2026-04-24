@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -p ~/.local/bin
           cp src/gaslsp ~/.local/bin/gaslsp
-          cp -r src/tables ~/.local/bin/
+          cp src/tables/*.csv ~/.local/bin/
           chmod +x tests/integration.sh tests/test_diags.sh
           tests/integration.sh
 
@@ -53,7 +53,7 @@ jobs:
         run: |
           mkdir -p ~/.local/bin
           cp src/gaslsp ~/.local/bin/gaslsp
+          cp src/tables/*.csv ~/.local/bin/
           cp tests/test_diags ~/.local/bin/test_diags
-          cp -r src/tables ~/.local/bin/
           chmod +x tests/test_diags.sh
           WORKSPACE="$(pwd)" tests/test_diags.sh

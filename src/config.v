@@ -72,7 +72,7 @@ pub mut:
 pub struct GeneralConfig {
 pub mut:
 	mode       string   = 'auto'
-	extensions []string = ['.s', '.S', '.asm']
+	extensions []string = ['.s', '.S', '.asm', '.inc']
 	recursive  bool     = true
 }
 
