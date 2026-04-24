@@ -19,7 +19,8 @@
 		"onLanguage:gas",
 		"workspaceContains:**/*.s",
 		"workspaceContains:**/*.S",
-		"workspaceContains:**/*.asm"
+		"workspaceContains:**/*.asm",
+		"workspaceContains:**/*.inc"
 	],
 	"main": "./extension.js",
 	"contributes": {
